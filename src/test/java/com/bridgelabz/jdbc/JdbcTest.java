@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class JdbcTest {
@@ -17,8 +18,11 @@ public class JdbcTest {
     public void givenEmployeePayrollInDb_WhenRetrieved_ShouldMatchEmployeeCount() {
         AddressBookDBService addressBookDBService=new AddressBookDBService();
         addressBookDBService.readData();
-     
+    }
 
-
+    @Test
+    public void abilityToAddNewContact() throws SQLException {
+        AddressBookDBService addressBookDBService=new AddressBookDBService();
+        addressBookDBService.addNewContact(5,"xyz","yzh","9987364545","xyz07@gmail,com",2,"Hyd","ddc","400502",5);
     }
 }

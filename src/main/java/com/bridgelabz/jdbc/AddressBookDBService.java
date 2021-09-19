@@ -51,4 +51,78 @@ public class AddressBookDBService {
             e.printStackTrace();
         }
     }
+
+
+
+    public void readAllData(){
+        String sql="SELECT contact.firstname,contact.lastname,address.city,address.state FROM contact inner join address on address.contact_id=contact.contact_id;";
+        try {
+            Connection connection=this.getConnection();
+            Statement statement=connection.createStatement();
+            ResultSet resultSet=statement.executeQuery(sql);
+            while (resultSet.next()){
+                System.out.println(
+                        resultSet.getString(1)+" "+
+                                resultSet.getString(2)+" "+
+                                resultSet.getString(3)+" "+
+                                resultSet.getString(4));
+            }
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void addNewContact(int id,String firstname,String lastName,String phoneno,String email,int typeId,String city,String state,String zip,int addId) throws SQLException {
+        Connection connection = null;
+        connection = this.getConnection();
+        connection.setAutoCommit(false);
+        Statement statement = connection.createStatement();
+
+        String sql = String.format("insert into contact(contact_id,firstname,lastname,phone_no,email,type_id) values (%d,'%s','%s','%s','%s',%d);", id,firstname, lastName, phoneno, email,typeId);
+        try{
+            //Statement statement = connection.createStatement();
+            int result = statement.executeUpdate(sql);
+
+           // readData();
+           // return result;
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            connection.rollback();
+        }
+        try {
+            String sql1 = String.format("insert into address(address_id,city,state,zip,contact_id) values (%d,'%s','%s','%s',%d);", addId,city, state, zip,id);
+            int result1=statement.executeUpdate(sql1);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            connection.rollback();
+        }
+        try {
+            connection.commit();
+            readAllData();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }finally {
+            if(connection!=null)
+            {
+                try {
+                    connection.close();
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+
+       // return 0;
+    }
+
+
 }
