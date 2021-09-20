@@ -28,8 +28,22 @@ public class JdbcTest {
 
 
     @Test
+    public void abilityToAddNewContactWithInsertDate() throws SQLException {
+        AddressBookDBService addressBookDBService=new AddressBookDBService();
+        addressBookDBService.addNewContact(7,"Karan","Kanchan","998736865","kk13@gmail,com",1,"Nashik","Maharashtra","400002",6);
+    }
+
+
+
+    @Test
     public void abilityToEditFirstName() {
         AddressBookDBService addressBookDBService=new AddressBookDBService();
         addressBookDBService.updateContactDataUsingStatement("Teju","Pratibha");
+    }
+
+    @Test
+    public void findContact_AddedBetweenSpecificDateRange(){
+        AddressBookDBService addressBookDBService=new AddressBookDBService();
+        addressBookDBService.retrieveAccordingToDate("2018-01-01","2020-12-12");
     }
 }
