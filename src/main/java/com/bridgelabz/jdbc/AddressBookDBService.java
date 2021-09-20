@@ -171,4 +171,26 @@ public class AddressBookDBService {
             e.printStackTrace();
         }
     }
+
+    public void retrieveByCityOrState(String city, String state) {
+       String sql= String.format("SELECT contact.firstname,contact.lastname,address.city,address.state FROM contact inner join address on address.contact_id=contact.contact_id where address.city='%s' OR address.state='%s';",city,state);
+        //String sql="SELECT contact.firstname,contact.lastname,address.city,address.state FROM contact inner join address on address.contact_id=contact.contact_id where address.city='%s' OR address.state='%s';",;
+        try {
+            Connection connection=this.getConnection();
+            Statement statement=connection.createStatement();
+            ResultSet resultSet=statement.executeQuery(sql);
+            while (resultSet.next()){
+                System.out.println(
+                        resultSet.getString(1)+" "+
+                                resultSet.getString(2)+" "+
+                                resultSet.getString(3)+" "+
+                                resultSet.getString(4));
+            }
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

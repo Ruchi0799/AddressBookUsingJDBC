@@ -46,4 +46,10 @@ public class JdbcTest {
         AddressBookDBService addressBookDBService=new AddressBookDBService();
         addressBookDBService.retrieveAccordingToDate("2018-01-01","2020-12-12");
     }
+
+    @Test
+    public void findContact_ByCityOrState(){
+        AddressBookDBService addressBookDBService=new AddressBookDBService();
+        addressBookDBService.retrieveByCityOrState("Navi Mumbai","Maharashtra");
+    }
 }
