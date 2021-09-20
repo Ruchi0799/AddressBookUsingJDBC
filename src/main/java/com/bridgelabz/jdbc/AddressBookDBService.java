@@ -75,6 +75,28 @@ public class AddressBookDBService {
         }
     }
 
+
+    public int updateContactDataUsingStatement(String oldName, String newName) {
+        String sql=String.format("update contact set firstname='%s' where firstname='%s';",newName,oldName);
+        try(Connection connection=this.getConnection()) {
+            Statement statement=connection.createStatement();
+            //readAllData();
+            int result=statement.executeUpdate(sql);
+            readAllData();
+            return statement.executeUpdate(sql);
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+
+
+
+
     public void addNewContact(int id,String firstname,String lastName,String phoneno,String email,int typeId,String city,String state,String zip,int addId) throws SQLException {
         Connection connection = null;
         connection = this.getConnection();

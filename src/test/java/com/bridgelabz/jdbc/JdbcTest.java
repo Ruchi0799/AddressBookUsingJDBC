@@ -25,4 +25,11 @@ public class JdbcTest {
         AddressBookDBService addressBookDBService=new AddressBookDBService();
         addressBookDBService.addNewContact(5,"xyz","yzh","9987364545","xyz07@gmail,com",2,"Hyd","ddc","400502",5);
     }
+
+
+    @Test
+    public void abilityToEditFirstName() {
+        AddressBookDBService addressBookDBService=new AddressBookDBService();
+        addressBookDBService.updateContactDataUsingStatement("Teju","Pratibha");
+    }
 }
